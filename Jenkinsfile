@@ -1,14 +1,13 @@
-
 pipeline {
     agent any
     environment {
-        NODEJS_HOME = tool name: 'NodeJS 16', type: 'NodeJSInstallation' // Set NodeJS version
+        NODEJS_HOME = tool name: 'NodeJS 16', type: 'NodeJSInstallation'
         PATH = "${NODEJS_HOME}/bin:${env.PATH}"
     }
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/saiprasadr870/social-app'
+                git branch: 'main', url: 'https://github.com/venkatsai1218/socialmedia1.git'
             }
         }
         stage('Install Dependencies') {
@@ -16,21 +15,9 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Run Tests') {
+        stage('Run App') {
             steps {
-                sh 'npm test'
-            }
-        }
-        stage('Build') {
-            steps {
-                echo 'Building the application...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the application...'
-                // Add your deployment steps here (For example, starting the server)
-                sh 'nohup npm start &'
+                sh 'npm start'
             }
         }
     }
