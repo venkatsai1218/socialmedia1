@@ -10,6 +10,16 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/saiprasadr870/social-app'
             }
         }
+        stage('Check Node.js Version') {
+            steps {
+                sh 'node --version'
+            }
+        }
+        stage('Check npm Version') {
+            steps {
+                sh 'npm --version'
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
@@ -23,13 +33,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
+                sh 'npm run build' // Optional, based on your project
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Add your deployment steps here (For example, starting the server)
-                sh 'nohup npm start &'
+                // Use pm2 for better control over the process
+                sh 'pm2 start npm -- start'
             }
         }
     }
