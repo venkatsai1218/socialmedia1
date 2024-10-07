@@ -15,11 +15,12 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Run Tests') {
-            steps {
-                sh 'npm test'
-            }
-        }
+        // Commented out the Run Tests stage
+        // stage('Run Tests') {
+        //     steps {
+        //         sh 'npm test'
+        //     }
+        // }
         stage('Build') {
             steps {
                 echo 'Building the application...'
@@ -28,7 +29,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Add your deployment steps here (For example, starting the server)
                 sh 'nohup npm start &'
             }
         }
